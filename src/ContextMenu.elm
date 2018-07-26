@@ -531,8 +531,15 @@ openIf condition transform context =
 position : Decode.Decoder Position
 position =
     Decode.map2 Position
-        (Decode.field "clientX" Decode.int)
-        (Decode.field "clientY" Decode.int)
+        (Decode.field "clientX" floatToInt)
+        (Decode.field "clientY" floatToInt)
+
+
+floatToInt : Decode.Decoder Int
+floatToInt =
+    Decode.float
+        |> Decode.map ceiling
+
 
 
 {-| Shows the menu. This should be called at only one place.
